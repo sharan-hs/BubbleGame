@@ -1,12 +1,13 @@
-var timer = 60;
+var timer = 10;
 var score = 0;
+var hit;
 function increaseScore(){
   score +=10;
   document.querySelector("#scoreValue").textContent = score;
 }
 
 function getNewHit(){
-  var hit = Math.floor(Math.random()*10)
+  hit = Math.floor(Math.random()*10)
   console.log(hit);
   document.querySelector("#hitValue").textContent = hit;
 }
@@ -30,11 +31,22 @@ function runTimer(){
       document.querySelector("#timerValue").textContent = timer;
     }
     else{
+      document.querySelector("#pbtm").innerHTML = `<h2>Game over! </h2><h3> Your Score is ${score}</h3>`
       clearInterval(timeInterval);
     }
   }, 1000);
 }
 
+document.querySelector("#pbtm").addEventListener("click",(details)=>{
+  var clickedNumber = Number(details.target.textContent)
+
+  if(clickedNumber === hit){
+    increaseScore();
+    makeBubbles();
+    getNewHit();
+  }
+
+})
 
 
 
@@ -42,4 +54,4 @@ function runTimer(){
 runTimer();
 makeBubbles();
 getNewHit();
-increaseScore();
+
